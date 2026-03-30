@@ -1,5 +1,7 @@
 # reqrisk
 
+**[中文文档](docs/README_zh.md) | English**
+
 Explainable risk assessment for HTTP request features in Go.
 
 `reqrisk` is a small Go core library that turns precomputed request features into explainable risk results.
@@ -69,6 +71,8 @@ go get github.com/GoFurry/reqrisk
 ---
 
 ## Quick example
+
+A runnable example lives at [`example/main.go`](example/main.go).
 
 ```go
 package main
@@ -217,9 +221,20 @@ Deferred:
 
 ---
 
+## Repository layout
+
+- root package: stable public API for callers
+- `internal/model`: input and output data structures
+- `internal/policy`: scoring policies, options, and config normalization
+- `internal/core`: assessment engine and built-in signal implementations
+
+The public import path stays at the root package on purpose so callers keep a simple integration point, while the implementation is split internally by responsibility for long-term maintenance.
+
+---
+
 ## Status
 
-`reqrisk` is currently being designed as a small, stable core library for explainable request risk assessment.
+`reqrisk` is now implemented as a small, stable core library for explainable request risk assessment.
 
 The first version is intentionally narrow and focused.
 
