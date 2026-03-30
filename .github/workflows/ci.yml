@@ -1,0 +1,77 @@
+name: ci
+
+on:
+  push:
+    branches:
+      - main
+      - dev
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  checks:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Go
+        uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+          cache: false
+
+      - name: Verify formatting
+        run: |
+          test -z "$(gofmt -l .)"
+
+      - name: Run go vet
+        run: go vet ./...
+
+      - name: Compile all packages
+        run: go test -run '^$' ./...
+
+  tests:
+    name: ${{ matrix.name }}
+    runs-on: ubuntu-latest
+    needs: checks
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - name: TestAssessEntropyUsesDefaultThresholds
+            pattern: '^TestAssessEntropyUsesDefaultThresholds$'
+          - name: TestAssessEntropyIgnoresSmallSamples
+            pattern: '^TestAssessEntropyIgnoresSmallSamples$'
+          - name: TestAssessComplexityProducesMultipleFindings
+            pattern: '^TestAssessComplexityProducesMultipleFindings$'
+          - name: TestAssessCharsetProducesExplainableTags
+            pattern: '^TestAssessCharsetProducesExplainableTags$'
+          - name: TestAssessFingerprintUsesRarityAndVolatility
+            pattern: '^TestAssessFingerprintUsesRarityAndVolatility$'
+          - name: TestEvaluateAggregatesSignalsIntoCriticalResult
+            pattern: '^TestEvaluateAggregatesSignalsIntoCriticalResult$'
+          - name: TestEvaluateUsesOnlyProvidedFeatures
+            pattern: '^TestEvaluateUsesOnlyProvidedFeatures$'
+          - name: TestNilAssessorFallsBackToDefault
+            pattern: '^TestNilAssessorFallsBackToDefault$'
+          - name: TestOptionsCanFocusScoringOnSingleSignal
+            pattern: '^TestOptionsCanFocusScoringOnSingleSignal$'
+          - name: TestNormalizeConfigClampsInvalidValues
+            pattern: '^TestNormalizeConfigClampsInvalidValues$'
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Go
+        uses: actions/setup-go@v6
+        with:
+          go-version-file: go.mod
+          cache: false
+
+      - name: Run test
+        run: go test -run "${{ matrix.pattern }}" ./...
