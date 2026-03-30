@@ -9,7 +9,7 @@ type entropyAnalyzer struct{}
 
 // AssessEntropy evaluates a single entropy feature with the default policy.
 func AssessEntropy(feature model.EntropyFeature) model.SignalReport {
-	cfg := policy.DefaultConfig()
+	cfg := singleSignalConfig("entropy")
 	return assessEntropy(feature, cfg)
 }
 

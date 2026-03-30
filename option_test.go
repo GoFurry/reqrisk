@@ -82,7 +82,7 @@ func TestNormalizeConfigClampsInvalidValues(t *testing.T) {
 		t.Fatalf("unexpected max score: got %d want %d", cfg.MaxScore, 100)
 	}
 
-	if cfg.Bands.Medium != 0 || cfg.Bands.High != 100 || cfg.Bands.Critical != 100 {
+	if cfg.Bands.Medium != 25 || cfg.Bands.High != 50 || cfg.Bands.Critical != 75 {
 		t.Fatalf("unexpected normalized bands: %+v", cfg.Bands)
 	}
 
@@ -92,5 +92,20 @@ func TestNormalizeConfigClampsInvalidValues(t *testing.T) {
 
 	if cfg.Charset.NonASCIIHigh != 1 || cfg.Charset.ControlHigh != 0 || cfg.Fingerprint.RarityHigh != 1 || cfg.Fingerprint.VolatilityHigh != 0 {
 		t.Fatalf("unexpected normalized ratio thresholds: charset=%+v fingerprint=%+v", cfg.Charset, cfg.Fingerprint)
+	}
+}
+
+func TestPartialPolicyOverridePreservesDefaultThresholds(t *testing.T) {
+	cfg := internalpolicy.DefaultConfig()
+
+	WithEntropyPolicy(EntropyPolicy{Weight: 2})(&cfg)
+	cfg = internalpolicy.NormalizeConfig(cfg)
+
+	if cfg.Entropy.Weight != 2 {
+		t.Fatalf("unexpected entropy weight: got %v want 2", cfg.Entropy.Weight)
+	}
+
+	if cfg.Entropy.MinSample != 256 || cfg.Entropy.Elevated != 7.2 || cfg.Entropy.High != 7.6 || cfg.Entropy.Extreme != 7.85 {
+		t.Fatalf("expected default entropy thresholds to be preserved, got %+v", cfg.Entropy)
 	}
 }

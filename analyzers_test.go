@@ -17,8 +17,8 @@ func TestAssessEntropyUsesDefaultThresholds(t *testing.T) {
 		t.Fatalf("unexpected score: got %d want 90", report.Score)
 	}
 
-	if report.Contribution != 23 {
-		t.Fatalf("unexpected contribution: got %d want 23", report.Contribution)
+	if report.Contribution != 90 {
+		t.Fatalf("unexpected contribution: got %d want 90", report.Contribution)
 	}
 
 	if len(report.Findings) != 1 {
@@ -58,8 +58,8 @@ func TestAssessComplexityProducesMultipleFindings(t *testing.T) {
 		t.Fatalf("unexpected score: got %d want 95", report.Score)
 	}
 
-	if report.Contribution != 24 {
-		t.Fatalf("unexpected contribution: got %d want 24", report.Contribution)
+	if report.Contribution != 95 {
+		t.Fatalf("unexpected contribution: got %d want 95", report.Contribution)
 	}
 
 	if len(report.Findings) != 3 {

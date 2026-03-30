@@ -9,7 +9,7 @@ type complexityAnalyzer struct{}
 
 // AssessComplexity evaluates a single complexity feature with the default policy.
 func AssessComplexity(feature model.ComplexityFeature) model.SignalReport {
-	cfg := policy.DefaultConfig()
+	cfg := singleSignalConfig("complexity")
 	return assessComplexity(feature, cfg)
 }
 

@@ -108,3 +108,23 @@ func TestNilAssessorFallsBackToDefault(t *testing.T) {
 		t.Fatalf("unexpected signal key: got %q", result.Signals[0].Key)
 	}
 }
+
+func TestWithMaxScoreRescalesDefaultBands(t *testing.T) {
+	assessor := New(WithMaxScore(200))
+
+	result := assessor.Evaluate(Features{
+		Entropy: &EntropyFeature{
+			Value:      7.9,
+			SampleSize: 1024,
+			Source:     "body",
+		},
+	})
+
+	if result.Score != 45 {
+		t.Fatalf("unexpected score: got %d want 45", result.Score)
+	}
+
+	if result.Level != LevelLow {
+		t.Fatalf("unexpected level: got %q want %q", result.Level, LevelLow)
+	}
+}

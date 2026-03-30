@@ -84,6 +84,27 @@ func totalWeight(cfg policy.Config) float64 {
 	return total
 }
 
+func singleSignalConfig(key string) policy.Config {
+	cfg := policy.DefaultConfig()
+	cfg.Entropy.Weight = 0
+	cfg.Complexity.Weight = 0
+	cfg.Charset.Weight = 0
+	cfg.Fingerprint.Weight = 0
+
+	switch key {
+	case "entropy":
+		cfg.Entropy.Weight = 1
+	case "complexity":
+		cfg.Complexity.Weight = 1
+	case "charset":
+		cfg.Charset.Weight = 1
+	case "fingerprint":
+		cfg.Fingerprint.Weight = 1
+	}
+
+	return cfg
+}
+
 func allocateContributions(localScores []int, total int) []int {
 	allocated := make([]int, len(localScores))
 	if total <= 0 || len(localScores) == 0 {

@@ -9,7 +9,7 @@ type charsetAnalyzer struct{}
 
 // AssessCharset evaluates a single charset feature with the default policy.
 func AssessCharset(feature model.CharsetFeature) model.SignalReport {
-	cfg := policy.DefaultConfig()
+	cfg := singleSignalConfig("charset")
 	return assessCharset(feature, cfg)
 }
 

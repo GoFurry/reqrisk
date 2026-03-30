@@ -9,7 +9,7 @@ type fingerprintAnalyzer struct{}
 
 // AssessFingerprint evaluates a single fingerprint feature with the default policy.
 func AssessFingerprint(feature model.FingerprintFeature) model.SignalReport {
-	cfg := policy.DefaultConfig()
+	cfg := singleSignalConfig("fingerprint")
 	return assessFingerprint(feature, cfg)
 }
 

@@ -14,6 +14,8 @@ type Config struct {
 	Complexity  ComplexityPolicy
 	Charset     CharsetPolicy
 	Fingerprint FingerprintPolicy
+
+	bandsCustomized bool
 }
 
 // LevelBands maps aggregate scores into risk levels.
@@ -99,9 +101,13 @@ func NormalizeConfig(cfg Config) Config {
 		cfg.MaxScore = defaultMaxScore
 	}
 
-	cfg.Bands.Medium = clampInt(cfg.Bands.Medium, 0, cfg.MaxScore)
-	cfg.Bands.High = clampInt(cfg.Bands.High, cfg.Bands.Medium, cfg.MaxScore)
-	cfg.Bands.Critical = clampInt(cfg.Bands.Critical, cfg.Bands.High, cfg.MaxScore)
+	if cfg.bandsCustomized {
+		cfg.Bands.Medium = clampInt(cfg.Bands.Medium, 0, cfg.MaxScore)
+		cfg.Bands.High = clampInt(cfg.Bands.High, cfg.Bands.Medium, cfg.MaxScore)
+		cfg.Bands.Critical = clampInt(cfg.Bands.Critical, cfg.Bands.High, cfg.MaxScore)
+	} else {
+		cfg.Bands = defaultBandsForMaxScore(cfg.MaxScore)
+	}
 
 	cfg.Entropy.Weight = maxFloat64(0, cfg.Entropy.Weight)
 	cfg.Entropy.MinSample = maxInt(0, cfg.Entropy.MinSample)
