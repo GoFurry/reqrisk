@@ -27,7 +27,14 @@ type (
 	ComplexityPolicy   = policy.ComplexityPolicy
 	CharsetPolicy      = policy.CharsetPolicy
 	FingerprintPolicy  = policy.FingerprintPolicy
+	Preset             = policy.Preset
 	Option             = policy.Option
+)
+
+const (
+	PresetBalanced     = policy.PresetBalanced
+	PresetSensitive    = policy.PresetSensitive
+	PresetConservative = policy.PresetConservative
 )
 
 const (
@@ -69,5 +76,7 @@ func WithComplexityPolicy(p ComplexityPolicy) Option { return policy.WithComplex
 func WithCharsetPolicy(p CharsetPolicy) Option { return policy.WithCharsetPolicy(p) }
 
 func WithFingerprintPolicy(p FingerprintPolicy) Option { return policy.WithFingerprintPolicy(p) }
+
+func WithPreset(p Preset) Option { return policy.WithPreset(p) }
 
 func WithMaxScore(n int) Option { return policy.WithMaxScore(n) }

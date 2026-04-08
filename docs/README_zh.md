@@ -1,4 +1,4 @@
-# reqrisk
+﻿# reqrisk
 
 **中文文档 | [English](../README.md)**
 
@@ -66,6 +66,8 @@ result := assessor.Evaluate(reqrisk.Features{
 })
 ```
 
+当前 benchmark 基线记录在 [`benchmark_baseline.md`](benchmark_baseline.md)。
+
 ## V1 内置信号
 
 - `entropy`
@@ -98,6 +100,24 @@ report := reqrisk.AssessEntropy(reqrisk.EntropyFeature{
 - `review`
 - `challenge`
 - `block`
+
+---
+
+## Presets
+
+`reqrisk` 提供了几种轻量预设，方便从不同的风险灵敏度开始：
+
+- `PresetBalanced`：保持默认基线
+- `PresetSensitive`：降低阈值，让边界信号更早出现
+- `PresetConservative`：提高阈值，只让更强的信号参与
+
+示例：
+
+```go
+assessor := reqrisk.New(reqrisk.WithPreset(reqrisk.PresetSensitive))
+```
+
+预设只是起点，后续你仍然可以继续叠加显式的策略覆盖。
 
 ## 仓库目录
 

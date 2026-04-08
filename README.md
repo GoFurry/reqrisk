@@ -74,6 +74,8 @@ go get github.com/GoFurry/reqrisk
 
 A runnable example lives at [`example/main.go`](example/main.go).
 
+The current benchmark baseline is tracked in [`docs/benchmark_baseline.md`](docs/benchmark_baseline.md).
+
 ```go
 package main
 
@@ -196,6 +198,24 @@ Suggested actions are derived from score and findings:
 - `review`
 - `challenge`
 - `block`
+
+---
+
+## Presets
+
+`reqrisk` ships with a few lightweight presets for common scoring styles:
+
+- `PresetBalanced` keeps the default baseline
+- `PresetSensitive` lowers thresholds so borderline signals surface earlier
+- `PresetConservative` raises thresholds so only stronger signals contribute
+
+Example:
+
+```go
+assessor := reqrisk.New(reqrisk.WithPreset(reqrisk.PresetSensitive))
+```
+
+Presets are a starting point only. You can still layer explicit policy overrides after them when you need to tune a specific field.
 
 ---
 
