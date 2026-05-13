@@ -5,7 +5,7 @@ import (
 	"fmt"
 	"os"
 
-	"github.com/GoFurry/reqrisk"
+	"github.com/gofurry/reqrisk"
 )
 
 func main() {

@@ -3,7 +3,7 @@ package reqrisk
 import (
 	"testing"
 
-	internalpolicy "github.com/GoFurry/reqrisk/internal/policy"
+	internalpolicy "github.com/gofurry/reqrisk/internal/policy"
 )
 
 func TestOptionsCanFocusScoringOnSingleSignal(t *testing.T) {

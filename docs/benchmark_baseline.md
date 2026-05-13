@@ -9,7 +9,7 @@ It is a reference point for future policy or analyzer changes, not a universal p
 - OS: `windows`
 - Arch: `amd64`
 - CPU: `AMD Ryzen 7 5800H with Radeon Graphics`
-- Package: `github.com/GoFurry/reqrisk`
+- Package: `github.com/gofurry/reqrisk`
 
 ## Commands
 

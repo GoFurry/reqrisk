@@ -4,8 +4,8 @@ import (
 	"math"
 	"sort"
 
-	"github.com/GoFurry/reqrisk/internal/model"
-	"github.com/GoFurry/reqrisk/internal/policy"
+	"github.com/gofurry/reqrisk/internal/model"
+	"github.com/gofurry/reqrisk/internal/policy"
 )
 
 type analyzer interface {

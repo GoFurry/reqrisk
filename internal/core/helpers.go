@@ -4,7 +4,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/GoFurry/reqrisk/internal/model"
+	"github.com/gofurry/reqrisk/internal/model"
 )
 
 func clampInt(value, min, max int) int {

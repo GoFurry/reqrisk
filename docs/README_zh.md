@@ -41,7 +41,7 @@
 ## 安装
 
 ```bash
-go get github.com/GoFurry/reqrisk
+go get github.com/gofurry/reqrisk
 ```
 
 ## 快速开始

@@ -65,7 +65,7 @@ That makes it a good fit as a downstream core library, including use alongside t
 ## Installation
 
 ```bash
-go get github.com/GoFurry/reqrisk
+go get github.com/gofurry/reqrisk
 ```
 
 ---
@@ -82,7 +82,7 @@ package main
 import (
     "fmt"
 
-    "github.com/GoFurry/reqrisk"
+    "github.com/gofurry/reqrisk"
 )
 
 func main() {
